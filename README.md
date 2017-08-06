@@ -1,0 +1,2 @@
+# BowerComponentLighthouse
+BowerComponentLighthouse
