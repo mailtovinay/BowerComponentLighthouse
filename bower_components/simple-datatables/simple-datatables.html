@@ -1,0 +1,195 @@
+<link rel="import" href="ask-head.html" />
+<link rel="import" href="ask-row.html" />
+<dom-module id="simple-datatables">
+    <template>
+    <style>
+    .table_container {
+    width: 100%;
+    float:  left;
+    clear: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.table-filters {
+    float: right;
+    width: 100%;
+    text-align: right;
+}
+.search-filters {
+    padding: 12px 0;
+    float: right;
+}
+.search-label {
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    display: inline-block;
+    line-height: 30px;
+    padding-right: 10px;
+    color: #232323;
+}
+.search-input {
+    font-size: 15px;
+    color: #232323;
+    border: solid 1px #eee;
+    padding: 6px 10px;
+    display: inline-block;
+    line-height: 18px;
+    min-width: 200px;
+}
+ .btn {
+        background-color: #ff6200;
+        border: none;
+        color: white;
+        padding: 10px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        float: right;
+      }
+.heading {
+        color: #232323;
+        font-weight: 600;
+        margin: 0 0 15px;
+        font-size: 22px;
+        padding:0;
+      }
+.ask-body, .ask-header {
+    width: 100%;
+    float: left;
+    clear: left;        
+}    
+.ask-row {
+    width: 100%;
+    float: left;
+    clear: left;
+	background: #fff;
+}
+.ask-row:nth-child(even) {
+	background: #f9f9f9;
+}
+</style>
+<div class="table_container">
+    <template is="dom-if" if="{{_heading()}}">
+        <h2 class="heading">{{hasheading}}</h2>
+    </template>
+    <template is="dom-if" if={{enablesearch}}>
+  <div class="table-filters">
+    <div class="search-filters">
+      <span class="search-label">Search: </span>
+      <input class="search-input" placeholder="search..." type="text" value="{{searchString::input}}" id="filter" />
+    </div>
+  </div>
+    </template>
+<div class="ask-table">
+    <div class="ask-head">
+        <template is="dom-repeat" items="{{headerdata}}">
+            <div class="ask-row"> 
+                <ask-head innerdata="{{item}}"></ask-head>
+            </div> 
+        </template>
+    </div>
+    <div class="ask-body">
+        <template is="dom-repeat" items="{{tabledata}}" filter="{{_computeFilter(searchString)}}">
+            <div class="ask-row"> 
+                <ask-row innerdata="{{item}}"></ask-row>
+            </div> 
+        </template>
+    </div>
+</div>
+</div>
+  </template>
+
+    <script>
+        class askSimpleDataTables extends Polymer.Element {
+
+    static get is() { return 'simple-datatables'; }
+
+           constructor() {
+      super();
+    }
+    static get properties () {
+      return {
+        tabledata: {
+          type: Array,
+          value: [{"Name":"Arun Sameer", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},{"Name":"Vinay Natha", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},{"Name":"Sanjeev Munaga", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},{"Name":"Priyanka Rani", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"}],
+          reflectToAttribute: true,
+        },
+        headerdata: {
+            type: Array,
+            value: {}
+        },
+        hasheading: {
+            type: String,
+            value: ''
+        },
+        enablesearch:{
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+        },
+        searchString : {
+            type :String
+        }
+      }
+    }
+    _heading(){
+        if(this.hasheading) {
+            return true;
+        }
+        if(this.hasheading) {
+            return false;
+        }
+    }
+    ready(){
+        super.ready();
+        if(this.tabledata != '') {
+            var sliced = this.tabledata.slice(0, 1);
+            this.headerdata = sliced;
+        }
+        if(this.tabledata == "") {
+            this.askapp = true;
+        }
+    }
+    _toArray(obj) {
+            return Object.keys(obj).map(function(key) {
+                return {
+                    name: key,
+                    value: obj[key]
+                };
+            });
+        }
+
+
+
+
+    _computeFilter(string) {
+        if (!string) {
+            return null;
+        }else {
+            if(typeof(string) == "number"){
+                string = string.toString().toLowerCase();
+            }
+            string = string.toLowerCase();
+                return function(item) {
+                var tempArray=[];
+                Object.keys(item).forEach(function(key,index) {
+                    if(item[key].toLowerCase().indexOf(string) != -1){
+                                tempArray.push("1");
+                    }     
+                    });
+                    return (tempArray.length == 0 ? false : true);
+
+                };
+            }
+        }
+
+
+}
+        window.customElements.define(askSimpleDataTables.is, askSimpleDataTables);
+    </script>
+</dom-module>

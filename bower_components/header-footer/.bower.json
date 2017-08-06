@@ -1,0 +1,34 @@
+{
+  "name": "header-footer",
+  "version": "1.0.2",
+  "authors": [
+    "Vinay Kumar"
+  ],
+  "description": "Use this compenents for header and footer",
+  "main": "",
+  "keywords": [
+    "header-footer"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mailtovinay/header-footer",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "^2.0.2"
+  },
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.2",
+    "commit": "6a1d5d9708cd1c2403d2004655bf41c3f8e79bb5"
+  },
+  "_source": "https://github.com/mailtovinay/header-footer.git",
+  "_target": "^1.0.2",
+  "_originalSource": "header-footer",
+  "_direct": true
+}

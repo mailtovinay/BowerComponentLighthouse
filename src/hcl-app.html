@@ -1,0 +1,81 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/simple-datatables/simple-datatables.html" />
+<link rel="import" href="../bower_components/header-footer/header-footer.html" />
+<dom-module id="hcl-app">
+    <template>
+        <style>
+            :host {
+                display: block
+            }
+            .container {
+                padding: 0 20px;
+                margin: 0 auto;
+                width: 100%;
+                box-sizing: border-box;                
+            }
+            .fixed .container {
+                max-width: 1140px;
+            }
+            .fluid .container {
+                max-width: 100%;
+            }
+            .content_wrapper {
+                width: 100%;
+                float: left;
+                clear: both;
+                padding: 20px 0;
+                min-height: calc(100% - 200px);
+                max-height: calc(100% - 137px);
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+        </style>
+		<header-footer layout="fixed" type="header" tagline="innovation" logo="http://www.hcl.com/sites/default/files/main-logo.png" menu='{{menudata}}'></header-footer>
+        <div class="content_wrapper fixed">
+            <div class="container">
+                <simple-datatables hasheading="Training Deatils" tabledata="{{mytabdata}}" enablesearch></simple-datatables>                    
+            </div>    
+        </div>    
+		<header-footer layout="fixed" type="footer" copyright="&copy; Webcomponent Copyrights to HCL" menu='{{menufooter}}'></header-footer>
+    </template>
+    <script>
+        class hclApp extends Polymer.Element {
+            static get is() { return 'hcl-app'; }
+            static get properties() {
+                return { 
+		      menudata: {
+		        type: Array,
+		        value: [{"name" : "My Account", "url": "http://google.com", "target": "_blank", "default":"active"},
+		                {"name" : "My Transcations", "url": "http://github.com", "target": "_blank"},
+		                {"name" : "Logout", "url": "http://hcl.com", "target": "_blank"}
+		        ],
+		      },
+		      menufooter: {
+		        type: Array,
+		        value: [{"name" : "Privacy Policy", "url": "http://google.com", "target": "_blank"},
+		                {"name" : "Terms & Conditions", "url": "http://github.com", "target": "_blank"}
+		        ],
+		      },
+		      mytabdata :{
+		        type: Array,
+		        value: [
+		          {"Name":"Veeera Arun Sameer", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},
+		          {"Name":"Vinay Natha", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},
+		          {"Name":"Sanjeev Munaga", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},
+		          {"Name":"Priyanka Rani", "Technology":"Polymer", "Start Date":"03-08-2017", "End Date": "04-08-2017"},
+		        ]
+		      }
+                };
+            }
+            constructor() {
+                super();
+            }
+            ready() {
+                super.ready();
+                Polymer.RenderStatus.afterNextRender(this, function() {  
+                });
+            }
+        }
+        window.customElements.define(hclApp.is, hclApp);
+    </script>
+</dom-module>
